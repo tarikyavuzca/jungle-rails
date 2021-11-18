@@ -20,13 +20,13 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <% Category.all.each do |category| %>
+            <% Category.order(:name).all.each do |category| %>
               <li><%= link_to category.name, category %></li>
             <% end %>
           </ul>
-          <li>
-          <%= link_to 'About Us', :about %>
         </li>
+        <li>
+          <%= link_to 'About Us', :about %>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -42,7 +42,8 @@
             <li><%= link_to 'Categories',  [:admin, :categories] %></li>
           </ul>
         </li>
-        <% if current_user%>
+
+        <% if current_user %>
           <li>
             <a><span class="text-primary">Signed in as <%= current_user.first_name %> <%= current_user.last_name%></span></a>
           </li>
@@ -51,7 +52,7 @@
           </li>
         <% else %>
           <li>
-            <%= link_to login_path do %>
+            <%= link_to "/login" do %>
               <span class="text-primary">Login</span>
             <%end%>
           </li>
@@ -61,6 +62,8 @@
             <%end%>
           </li>
         <% end %>
+
+        <li>
           <%= link_to cart_path do %>
             <%= fa_icon "shopping-cart" %> My Cart (<%= cart.size %>)
           <% end %>
